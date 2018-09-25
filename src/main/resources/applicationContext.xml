@@ -3,9 +3,47 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--通过setter方法注入，最常用-->
     <bean id="helloWorld" class="com.heran.spring1.demo.HelloWorld">
         <property name="name" value="Spring"></property>
     </bean>
+
+    <!--构造方法注入，没有name属性,可以指定参数位置index和类型type，以区分重载的构造器-->
+    <bean id="car" class="com.heran.spring1.demo.Car">
+        <constructor-arg value="Audi" index="0"></constructor-arg>
+        <constructor-arg value="Shanghai" index="1"></constructor-arg>
+        <constructor-arg value="300000.1" type ="double"></constructor-arg>
+    </bean>
+
+    <bean id="car2" class="com.heran.spring1.demo.Car">
+        <constructor-arg value="BMW" type="java.lang.String"></constructor-arg>
+        <!--如果包含特殊字符，用<![CDATA[]>包裹起来-->
+        <constructor-arg type="java.lang.String">
+            <value><![CDATA[<Shanghai^>]]></value>
+        </constructor-arg>
+        <constructor-arg type="int">
+            <value>250</value>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="person" class="com.heran.spring1.demo.Person">
+        <property name="name" value="Tom"></property>
+        <property name="age" value="24"></property>
+        <!--<property name="car">-->
+            <!--<ref bean="car2"></ref>-->
+        <!--</property>-->
+        <!--Internal Bean-->
+        <property name="car">
+            <bean class="com.heran.spring1.demo.Car">
+                <constructor-arg value="Ford"></constructor-arg>
+                <constructor-arg value="Changan"></constructor-arg>
+                <constructor-arg value ="200000" type="double"></constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+
 
 
 </beans>
